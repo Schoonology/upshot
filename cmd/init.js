@@ -45,9 +45,6 @@ function sync(argv, options, loader) {
       return common.git('init')
     })
     .then(function () {
-      return common.git(['remote', 'rm', 'upshot'])
-    })
-    .then(function () {
       return common.git(['remote', 'add', 'upshot', config.gitUrl])
     })
     .then(function () {

@@ -1,3 +1,7 @@
-Usage:
+Usage: upshot init
 
-    upshot init
+Initializes Upshot, downloading the necessary files to the local filesystem.
+
+As part of the initialization process, `upshot init` may ask for your GitHub
+username and password. This is used to create a new Secret Gist on your behalf.
+This Gist is used to store the Upshot.

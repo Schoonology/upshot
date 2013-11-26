@@ -8,7 +8,7 @@ function sync(argv, options, loader) {
     return loader.run(['init'])
   }
 
-  return common.git(['pull', 'upshot', 'master'])
+  return common.git(['pull', 'upshot', 'master', '-s', '"recursive patience"'])
     .then(function () {
       return common.git(['add', '.'])
     })

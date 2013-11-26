@@ -7,6 +7,10 @@ function open(argv, options, loader) {
     return loader.run(['init'])
   }
 
+  if (!process.stdout.isTTY) {
+    return process.stdout.write(config.editPath + '\n')
+  }
+
   if (config.editor) {
     return common.pSpawn(config.editor, [config.editPath])
   }

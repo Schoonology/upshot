@@ -1,3 +1,9 @@
-Usage:
+Usage: upshot help [COMMAND]
 
-    upshot help
+Shows help for the specified Upshot COMMAND. If COMMAND is omitted, shows usage
+information for Upshot itself.
+
+Examples:
+
+  upshot help
+  upshot help sync

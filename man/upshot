@@ -1,1 +1,24 @@
-man upshot
+Usage: upshot COMMAND [OPTIONS]
+
+Runs the specified Upshot COMMAND with the specified OPTIONS. If COMMAND is
+omitted, this usage information is displayed instead.
+
+See `upshot help COMMAND` for more information.
+
+Basic commands:
+
+  help COMMAND
+  init
+  open
+  sync
+
+Advanced commands:
+
+  clean
+  view
+
+Typical workflow:
+
+  upshot init
+  upshot open
+  upshot sync

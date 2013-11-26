@@ -1,7 +1,4 @@
-Usage:
+Usage: upshot sync
 
-    upshot sync
-
-Description:
-
-Synchronizes the local upshot with the server.
+Synchronizes the local Upshot with the remote Gist. Merges are handled using
+the "patient recursive" strategy by default.

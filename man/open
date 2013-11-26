@@ -1,3 +1,11 @@
-Usage:
+Usage: upshot open
 
-    upshot open
+If piped into a command, `upshot open` sends the location of the Upshot file to
+stdout. Otherwise, `upshot open` attempts to open the Upshot file in the
+preferred editor. If an "editor" is set in ~/.upshotrc, that command will be
+used. Otherwise, the system-wide default for Markdown will be used instead.
+
+Examples:
+
+  upshot open
+  upshot open | xargs -n 1 vim
