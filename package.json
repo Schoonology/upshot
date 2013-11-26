@@ -2,7 +2,10 @@
   "name": "upshot",
   "version": "0.1.0",
   "description": "Get and set the upshot of your ideas as gists.",
-  "main": "index.js",
+  "main": "bin/upshot",
+  "bin": {
+    "upshot": "bin/upshot"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
