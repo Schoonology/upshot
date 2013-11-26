@@ -7,21 +7,40 @@ var fs = require('fs')
   , config = require('../lib/config')
 
 function sync(argv, options, loader) {
+  if (config.init) {
+    console.log('Upshot already initialized.')
+    return
+  }
+
   return common.prompt([{
     name: 'username',
-    message: 'Git username:'
+    message: 'GitHub username:'
   }, {
-    type: 'input',
-    name: 'id',
-    message: 'Gist ID:'
+    type: 'password',
+    name: 'password',
+    message: 'GitHub password:'
   }])
     .then(function (answers) {
-      config.viewUrl = util.format('https://gist.github.com/%s/%s', answers.username, answers.id)
-      config.gitUrl = util.format('git@github.com:%s.git', answers.id)
+      if (config.token) {
+        return when.resolve(config.token)
+      }
+
+      return common.getToken(answers.username, answers.password)
+    })
+    .then(function (token) {
+      config.token = token
+
+      if (config.gitUrl) {
+        return when.resolve(config)
+      }
+
+      return common.createGist(token)
+    })
+    .then(function (gist) {
+      config.viewUrl = gist.viewUrl
+      config.gitUrl = gist.gitUrl
 
       sh.mkdir('-p', config.root)
-
-      console.log('Fetching from %s...', config.gitUrl)
 
       return common.git('init')
     })
