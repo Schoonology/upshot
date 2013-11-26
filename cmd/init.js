@@ -6,7 +6,7 @@ var fs = require('fs')
   , common = require('../lib/common')
   , config = require('../lib/config')
 
-function sync(argv, options, loader) {
+function init(argv, options, loader) {
   if (config.init) {
     console.log('Upshot already initialized.')
     return
@@ -58,4 +58,4 @@ function sync(argv, options, loader) {
     })
 }
 
-module.exports = sync
+module.exports = init
