@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+var path = require('path')
+var loader = require('ocl').createLoader({
+  root: path.resolve(__dirname, '..', 'cmd'),
+  manuals: path.resolve(__dirname, '..', 'man')
+})
+var when = require('when')
+
+when(
+  loader.run(),
+  null,
+  function (err) {
+    console.error('Error: %s', err.stack || err.message || err)
+  }
+)

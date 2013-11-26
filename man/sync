@@ -1,0 +1,7 @@
+Usage:
+
+    upshot sync
+
+Description:
+
+Synchronizes the local upshot with the server.
