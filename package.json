@@ -1,6 +1,6 @@
 {
   "name": "upshot",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Get and set the upshot of your ideas as gists.",
   "main": "bin/upshot",
   "bin": {
