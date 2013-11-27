@@ -8,12 +8,12 @@ function sync(argv, options, loader) {
     return loader.run(['init'])
   }
 
-  return common.git(['pull', 'upshot', 'master', '-s', '"recursive patience"'])
+  return common.git(['fetch', 'upshot'])
     .then(function () {
-      return common.git(['add', '.'])
+      return common.git(['commit', '-a', '--allow-empty-message', '-m', ''])
     })
     .then(function () {
-      return common.git(['commit', '--allow-empty-message', '-m', '""'])
+      return common.git(['rebase', 'upshot/master', '-m', '-s', 'recursive', '-X', 'ours'])
     })
     .then(function () {
       return common.git(['push', 'upshot', 'master'])

@@ -1,4 +1,6 @@
 Usage: upshot sync
 
-Synchronizes the local Upshot with the remote Gist. Merges are handled using
-the "patient recursive" strategy by default.
+Synchronizes the local Upshot with the remote Gist. Merges are handled by
+favoring any changes on the server. Because of this it is HIGHLY RECOMMENDED
+to `upshot sync` often, especially both before and after making changes, if
+the Upshot is shared between machines.
