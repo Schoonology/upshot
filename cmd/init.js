@@ -6,6 +6,13 @@ var fs = require('fs')
   , common = require('../lib/common')
   , config = require('../lib/config')
 
+function gistToConfig(gist) {
+  return {
+    gitUrl: util.format('git@github.com:%s.git', gist.id),
+    viewUrl: gist.html_url
+  }
+}
+
 function init(argv, options, loader) {
   var start
 
@@ -30,7 +37,6 @@ function init(argv, options, loader) {
       })
   }
 
-
   return start
     .then(function (token) {
       config.token = token
@@ -40,9 +46,46 @@ function init(argv, options, loader) {
         return when.resolve(config)
       }
 
-      return common.createGist(token)
+      return common.getAllGists(config.token)
+    })
+    .then(function (gists) {
+      gists = gists
+        .filter(function (gist) {
+          return gist.description.slice(0, 6).toLowerCase() === 'upshot'
+        })
+
+      if (gists.length === 0) {
+        return {}
+      }
+
+      // This option is for a new Gist.
+      gists.push({
+        id: null,
+        description: 'None (Create New)'
+      })
+
+      return common.prompt({
+        name: 'gist',
+        type: 'list',
+        message: 'Use which existing Gist?',
+        choices: gists.map(function (gist) {
+          return {
+            name: gist.description + (gist.id ? ' (' + gist.id + ')' : ''),
+            value: gist
+          }
+        })
+      })
+    })
+    .then(function (answers) {
+      if (answers.gist && answers.gist.id) {
+        return answers.gist
+      }
+
+      return common.createGist(config.token)
     })
     .then(function (gist) {
+      gist = gistToConfig(gist)
+
       config.viewUrl = gist.viewUrl
       config.gitUrl = gist.gitUrl
       config.save()
