@@ -47,41 +47,41 @@ function init(argv, options, loader) {
       }
 
       return common.getAllGists(config.token)
-    })
-    .then(function (gists) {
-      gists = gists
-        .filter(function (gist) {
-          return gist.description.slice(0, 6).toLowerCase() === 'upshot'
-        })
+        .then(function (gists) {
+          gists = gists
+            .filter(function (gist) {
+              return gist.description.slice(0, 6).toLowerCase() === 'upshot'
+            })
 
-      if (gists.length === 0) {
-        return {}
-      }
-
-      // This option is for a new Gist.
-      gists.push({
-        id: null,
-        description: 'None (Create New)'
-      })
-
-      return common.prompt({
-        name: 'gist',
-        type: 'list',
-        message: 'Use which existing Gist?',
-        choices: gists.map(function (gist) {
-          return {
-            name: gist.description + (gist.id ? ' (' + gist.id + ')' : ''),
-            value: gist
+          if (gists.length === 0) {
+            return {}
           }
-        })
-      })
-    })
-    .then(function (answers) {
-      if (answers.gist && answers.gist.id) {
-        return answers.gist
-      }
 
-      return common.createGist(config.token)
+          // This option is for a new Gist.
+          gists.push({
+            id: null,
+            description: 'None (Create New)'
+          })
+
+          return common.prompt({
+            name: 'gist',
+            type: 'list',
+            message: 'Use which existing Gist?',
+            choices: gists.map(function (gist) {
+              return {
+                name: gist.description + (gist.id ? ' (' + gist.id + ')' : ''),
+                value: gist
+              }
+            })
+          })
+        })
+        .then(function (answers) {
+          if (answers.gist && answers.gist.id) {
+            return answers.gist
+          }
+
+          return common.createGist(config.token)
+        })
     })
     .then(function (gist) {
       gist = gistToConfig(gist)
